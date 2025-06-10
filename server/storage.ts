@@ -105,6 +105,8 @@ export class MemStorage implements IStorage {
         time: hourString,
         temperature: 24 - i,
         precipitation,
+        humidity: 75 + i * 3, // Realistic humidity range 75-87%
+        windSpeed: 3.2 + i * 0.8, // Wind speed increases gradually
         weatherCondition
       });
     }

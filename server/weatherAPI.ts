@@ -66,6 +66,8 @@ export async function fetchHourlyForecast(): Promise<ForecastHour[]> {
       time,
       temperature,
       precipitation,
+      humidity: Math.round((75 + i * 3 + Math.random() * 5)),
+      windSpeed: Math.round((3.2 + i * 0.8 + Math.random() * 1) * 10) / 10,
       weatherCondition
     });
   }

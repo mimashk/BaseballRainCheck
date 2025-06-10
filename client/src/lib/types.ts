@@ -12,6 +12,8 @@ export type ForecastHour = {
   time: string;
   temperature: number;
   precipitation: number;
+  humidity: number;
+  windSpeed: number;
   weatherCondition: string;
   icon?: string;
 }
