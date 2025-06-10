@@ -41,17 +41,21 @@ export function ForecastSection() {
       </CardHeader>
       
       <CardContent className="p-4">
-        <div className="space-y-4">
+        <div className="space-y-3">
           {forecastHours.map((hour, index) => (
-            <div key={index} className="flex items-center justify-between p-2 border-b">
+            <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
               <div className="flex items-center">
-                <span className="material-icons text-[#3498db] mr-2">{hour.icon || "cloud"}</span>
-                <span>{hour.time}</span>
+                <span className="material-icons text-[#3498db] mr-3">{hour.icon || "cloud"}</span>
+                <span className="font-medium">{hour.time}</span>
               </div>
-              <div className="flex items-center">
-                <span>{formatTemperature(hour.temperature)}</span>
-                <div className="ml-3 w-16 text-right">
-                  <span>{formatPrecipitation(hour.precipitation)}</span>
+              <div className="flex items-center gap-4">
+                <div className="text-right">
+                  <div className="text-sm text-gray-500">気温</div>
+                  <div className="font-bold">{formatTemperature(hour.temperature)}</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-sm text-gray-500">降水量</div>
+                  <div className="font-bold">{formatPrecipitation(hour.precipitation)}</div>
                 </div>
               </div>
             </div>
@@ -73,13 +77,19 @@ function ForecastSkeleton() {
       </CardHeader>
       
       <CardContent className="p-4">
-        <div className="space-y-4">
+        <div className="space-y-3">
           {[1, 2, 3, 4].map((idx) => (
-            <div key={idx} className="flex items-center justify-between p-2 border-b">
+            <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
               <Skeleton className="h-6 w-24" />
-              <div className="flex items-center gap-3">
-                <Skeleton className="h-6 w-16" />
-                <Skeleton className="h-6 w-16" />
+              <div className="flex items-center gap-4">
+                <div className="text-right">
+                  <Skeleton className="h-4 w-8 mb-1" />
+                  <Skeleton className="h-6 w-12" />
+                </div>
+                <div className="text-right">
+                  <Skeleton className="h-4 w-12 mb-1" />
+                  <Skeleton className="h-6 w-16" />
+                </div>
               </div>
             </div>
           ))}
