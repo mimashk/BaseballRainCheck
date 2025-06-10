@@ -32,8 +32,8 @@ export function ForecastSection() {
   }
   
   return (
-    <div className="mb-8">
-      <Card className="max-w-md mx-auto rounded-xl">
+    <section className="mb-8">
+      <Card className="rounded-xl">
         <CardHeader className="bg-[#3498db] p-4 text-white rounded-t-xl">
           <CardTitle className="text-xl font-bold flex items-center">
             <span className="material-icons mr-2">schedule</span>
@@ -64,14 +64,14 @@ export function ForecastSection() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </section>
   );
 }
 
 function ForecastSkeleton() {
   return (
-    <div className="mb-8">
-      <Card className="max-w-md mx-auto rounded-xl">
+    <section className="mb-8">
+      <Card className="rounded-xl">
         <CardHeader className="bg-[#3498db] p-4 text-white rounded-t-xl">
           <CardTitle className="text-xl font-bold flex items-center">
             <span className="material-icons mr-2">schedule</span>
@@ -102,6 +102,6 @@ function ForecastSkeleton() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </section>
   );
 }
