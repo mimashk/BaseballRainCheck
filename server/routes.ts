@@ -52,6 +52,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // API route for updating game status
+  app.post("/api/game/status", async (req, res) => {
+    try {
+      const { status, announcement } = req.body;
+      await storage.updateGameStatus(status, announcement);
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error updating game status:", error);
+      res.status(500).json({ 
+        error: "試合状況の更新に失敗しました。" 
+      });
+    }
+  });
+
   // API route for cancellation prediction
   app.get("/api/prediction", async (req, res) => {
     try {
