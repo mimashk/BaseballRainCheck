@@ -33,8 +33,8 @@ export function ForecastSection() {
   
   return (
     <div className="mb-8">
-      <Card className="max-w-2xl mx-auto">
-        <CardHeader className="bg-[#3498db] p-4 text-white">
+      <Card className="max-w-md mx-auto rounded-xl">
+        <CardHeader className="bg-[#3498db] p-4 text-white rounded-t-xl">
           <CardTitle className="text-xl font-bold flex items-center">
             <span className="material-icons mr-2">schedule</span>
             天気予報
@@ -42,20 +42,20 @@ export function ForecastSection() {
         </CardHeader>
         
         <CardContent className="p-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="space-y-3">
             {forecastHours.map((hour, index) => (
-              <div key={index} className="p-3 bg-gray-50 rounded-lg">
-                <div className="flex items-center mb-2">
-                  <span className="material-icons text-[#3498db] mr-2">{hour.icon || "cloud"}</span>
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center">
+                  <span className="material-icons text-[#3498db] mr-3">{hour.icon || "cloud"}</span>
                   <span className="font-medium">{hour.time}</span>
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-sm">
-                  <div>
-                    <div className="text-gray-500">気温</div>
+                <div className="flex items-center gap-4">
+                  <div className="text-right">
+                    <div className="text-sm text-gray-500">気温</div>
                     <div className="font-bold">{formatTemperature(hour.temperature)}</div>
                   </div>
-                  <div>
-                    <div className="text-gray-500">降水量</div>
+                  <div className="text-right">
+                    <div className="text-sm text-gray-500">降水量</div>
                     <div className="font-bold">{formatPrecipitation(hour.precipitation)}</div>
                   </div>
                 </div>
@@ -71,8 +71,8 @@ export function ForecastSection() {
 function ForecastSkeleton() {
   return (
     <div className="mb-8">
-      <Card className="max-w-2xl mx-auto">
-        <CardHeader className="bg-[#3498db] p-4 text-white">
+      <Card className="max-w-md mx-auto rounded-xl">
+        <CardHeader className="bg-[#3498db] p-4 text-white rounded-t-xl">
           <CardTitle className="text-xl font-bold flex items-center">
             <span className="material-icons mr-2">schedule</span>
             天気予報
@@ -80,19 +80,19 @@ function ForecastSkeleton() {
         </CardHeader>
         
         <CardContent className="p-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="space-y-3">
             {[1, 2, 3, 4].map((idx) => (
-              <div key={idx} className="p-3 bg-gray-50 rounded-lg">
-                <div className="flex items-center mb-2">
-                  <Skeleton className="h-6 w-6 mr-2" />
+              <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center">
+                  <Skeleton className="h-6 w-6 mr-3" />
                   <Skeleton className="h-6 w-16" />
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-sm">
-                  <div>
+                <div className="flex items-center gap-4">
+                  <div className="text-right">
                     <Skeleton className="h-4 w-8 mb-1" />
                     <Skeleton className="h-5 w-12" />
                   </div>
-                  <div>
+                  <div className="text-right">
                     <Skeleton className="h-4 w-12 mb-1" />
                     <Skeleton className="h-5 w-16" />
                   </div>
