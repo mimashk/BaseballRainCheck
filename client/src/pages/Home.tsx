@@ -38,6 +38,7 @@ export default function Home() {
         <HistoricalData />
       </main>
       
+      <AdminPanel />
       <Footer />
     </div>
   );
