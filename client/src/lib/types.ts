@@ -22,6 +22,12 @@ export type GameInfo = {
   startTime: string;
   event?: string;
   cancelPolicy?: string;
+  status?: 'scheduled' | 'cancelled' | 'in_progress' | 'completed';
+  officialAnnouncement?: {
+    timestamp: string;
+    message: string;
+    source: string;
+  };
 }
 
 export type HistoricalDataEntry = {

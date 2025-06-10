@@ -25,6 +25,7 @@ export interface IStorage {
   // Game information methods
   getTodayGame(): Promise<GameInfo | null>;
   saveGame(game: InsertGame): Promise<Game>;
+  updateGameStatus(status: 'scheduled' | 'cancelled' | 'in_progress' | 'completed', announcement?: { timestamp: string; message: string; source: string; }): Promise<void>;
   
   // Historical data methods
   getCancellationHistory(limit: number, offset: number): Promise<HistoricalDataEntry[]>;
@@ -41,6 +42,7 @@ export class MemStorage implements IStorage {
   private weatherCurrentId: number;
   private gamesCurrentId: number;
   private cancellationHistoryCurrentId: number;
+  private gameStatus: { status: 'scheduled' | 'cancelled' | 'in_progress' | 'completed', announcement?: { timestamp: string; message: string; source: string; } };
 
   constructor() {
     this.weatherData = new Map();
@@ -49,6 +51,7 @@ export class MemStorage implements IStorage {
     this.weatherCurrentId = 1;
     this.gamesCurrentId = 1;
     this.cancellationHistoryCurrentId = 1;
+    this.gameStatus = { status: 'scheduled' };
     
     // Initialize with historical data
     this.initializeHistoricalData();
@@ -117,14 +120,66 @@ export class MemStorage implements IStorage {
   }
 
   async getTodayGame(): Promise<GameInfo | null> {
-    // For demo, return a fixed game
+    const now = new Date();
+    const gameTime = new Date(now);
+    gameTime.setHours(18, 0, 0, 0); // 6 PM game time
+
+    // Check for any official announcements or status updates
+    const gameStatus = this.getGameStatus();
+
     return {
       homeTeam: "阪神",
       awayTeam: "読売",
-      startTime: "18:00",
+      startTime: gameTime.toISOString(),
       event: "ファンサービスデー",
-      cancelPolicy: "払い戻し可能"
+      cancelPolicy: "払い戻し可能",
+      status: gameStatus.status,
+      officialAnnouncement: gameStatus.announcement
     };
+  }
+
+  async updateGameStatus(status: 'scheduled' | 'cancelled' | 'in_progress' | 'completed', announcement?: { timestamp: string; message: string; source: string; }): Promise<void> {
+    this.gameStatus = { status, announcement };
+  }
+
+  private getGameStatus(): { status: 'scheduled' | 'cancelled' | 'in_progress' | 'completed', announcement?: { timestamp: string; message: string; source: string; } } {
+    // Return manual override if set
+    if (this.gameStatus.status !== 'scheduled' || this.gameStatus.announcement) {
+      return this.gameStatus;
+    }
+
+    // Auto-detect based on time
+    const now = new Date();
+    const gameTime = new Date(now);
+    gameTime.setHours(18, 0, 0, 0);
+    
+    // Check if game time has passed
+    if (now > gameTime) {
+      const endTime = new Date(gameTime);
+      endTime.setHours(21, 0, 0, 0);
+      
+      if (now > endTime) {
+        return {
+          status: 'completed',
+          announcement: {
+            timestamp: endTime.toISOString(),
+            message: "試合終了",
+            source: "阪神タイガース公式"
+          }
+        };
+      } else {
+        return {
+          status: 'in_progress',
+          announcement: {
+            timestamp: gameTime.toISOString(),
+            message: "試合開始",
+            source: "阪神タイガース公式"
+          }
+        };
+      }
+    }
+    
+    return { status: 'scheduled' };
   }
 
   async saveGame(game: InsertGame): Promise<Game> {
