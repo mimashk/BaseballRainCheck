@@ -1,6 +1,33 @@
-node_modules
-dist
+# Dependencies
+node_modules/
+.pythonlibs/
+
+# Next.js
+next-app/.next/
+next-app/out/
+
+# Python
+ml-service/__pycache__/
+ml-service/*.pyc
+ml-service/.env
+ml-service/cancellation_model.joblib
+ml-service/weather_scaler.joblib
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Logs
+*.log
+
+# OS
 .DS_Store
-server/public
-vite.config.ts.*
-*.tar.gz
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Docker
+.dockerignore
