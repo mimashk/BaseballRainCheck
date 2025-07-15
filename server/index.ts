@@ -1,8 +1,23 @@
-// Migration Status Server - Temporary compatibility layer
+// Redirect to Next.js App
 import express from 'express';
+import { spawn } from 'child_process';
 
 const app = express();
 const port = 5000;
+
+// Start Next.js app in background
+const nextApp = spawn('npm', ['run', 'dev'], { 
+  cwd: './next-app',
+  stdio: 'inherit',
+  shell: true
+});
+
+console.log('🚀 Starting Next.js app on port 3000...');
+
+// Redirect all traffic to Next.js app
+app.use((req, res) => {
+  res.redirect('http://localhost:3000');
+});
 
 app.get('/', (req, res) => {
   res.send(`
@@ -133,9 +148,6 @@ app.get('/health', (req, res) => {
 });
 
 app.listen(port, '0.0.0.0', () => {
-  console.log(`Migration status server running on port ${port}`);
-  console.log('✅ Architecture migration completed successfully!');
-  console.log('📦 Next.js App: port 3000 (containerized)');
-  console.log('🤖 ML Service: port 8000 (containerized)');
-  console.log('🚀 Use: ./start-containers.sh or docker-compose up');
+  console.log(`Redirect server running on port ${port}`);
+  console.log('Redirecting to Next.js App on port 3000...');
 });
