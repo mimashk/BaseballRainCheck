@@ -17,15 +17,18 @@
 
 ## プロジェクト構成変更
 
-### 新しいディレクトリ構成
+### クリーンアップ後の構成
 ```
 プロジェクトルート/
-├── next-app/          # Next.js UI + API (新規)
-├── ml-service/        # Python ML サービス (新規)
-├── client/           # 従来のReact アプリ (保持)
-├── server/           # 従来のExpress サーバー (保持)
-├── docker-compose.yml
-└── start-containers.sh
+├── next-app/          # Next.js UI + API Routes
+│   ├── app/           # App Router (UI + API)
+│   ├── components/    # React Components
+│   └── types/         # TypeScript Types
+├── ml-service/        # Python FastAPI + ML
+│   ├── main.py        # FastAPI Application
+│   └── Dockerfile     # Container Config
+├── docker-compose.yml # Multi-service orchestration
+└── start-containers.sh # Startup script
 ```
 
 ## 最近の変更 (2025-07-08)
