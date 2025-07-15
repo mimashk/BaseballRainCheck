@@ -10,10 +10,13 @@ services:
     environment:
       - NODE_ENV=production
       - ML_SERVICE_URL=http://ml-service:8000
+      - NEXT_TELEMETRY_DISABLED=1
     depends_on:
-      - ml-service
+      ml-service:
+        condition: service_healthy
     networks:
       - app-network
+    restart: unless-stopped
 
   ml-service:
     build:
@@ -23,13 +26,18 @@ services:
       - "8000:8000"
     environment:
       - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
     networks:
       - app-network
+    volumes:
+      - ml-models:/app/models
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 40s
+    restart: unless-stopped
 
 networks:
   app-network:

@@ -31,14 +31,17 @@
 └── start-containers.sh # Startup script
 ```
 
-## 最近の変更 (2025-07-08)
+## 最近の変更 (2025-07-15)
 - ✅ Next.js 15 + TypeScript フロントエンド完全移植
 - ✅ Next.js API Routes による中間API層実装
 - ✅ FastAPI + scikit-learn による独立ML予測サービス
-- ✅ Docker + Docker Compose設定
+- ✅ Docker + Docker Compose設定完了
 - ✅ 全コンポーネント移植完了 (天気・予測・履歴・管理パネル)
 - ✅ Tailwind CSS + Material Icons デザイン
 - ✅ レスポンシブ対応とローディング状態
+- ✅ Rancher Desktop対応とDocker設定最適化
+- ✅ ヘルスチェック機能とエラーハンドリング強化
+- ✅ 起動スクリプトとREADME作成
 
 ## 機能実装状況
 - ✅ 4項目天気データ表示（気温・降水量・湿度・風速）

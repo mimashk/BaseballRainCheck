@@ -2,10 +2,11 @@
 const nextConfig = {
   output: 'standalone',
   async rewrites() {
+    const mlServiceUrl = process.env.ML_SERVICE_URL || 'http://localhost:8000';
     return [
       {
         source: '/api/ml/:path*',
-        destination: 'http://localhost:8000/:path*',
+        destination: `${mlServiceUrl}/:path*`,
       },
     ];
   },
